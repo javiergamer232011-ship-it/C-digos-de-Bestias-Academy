@@ -108,6 +108,7 @@
             text-align: center;
             padding: 0 5%;
             background: radial-gradient(circle at center, #001f3f 0%, #050505 100%);
+            transition: filter 0.5s ease;
         }
 
         .hero-content h1 {
@@ -126,7 +127,7 @@
         }
 
         /* Secciones Generales */
-        section { padding: 100px 10%; }
+        section { padding: 100px 10%; transition: filter 0.5s ease; }
 
         h2 {
             font-family: 'Bebas Neue', sans-serif;
@@ -191,18 +192,6 @@
             content: "→";
             color: var(--primary);
         }
-
-        /* Sección NPC sin imagen */
-        .npc-section {
-            background: #080808;
-            border-radius: 40px;
-            padding: 80px 10%;
-            text-align: center;
-            margin: 50px 0;
-            border: 1px solid rgba(0, 210, 255, 0.1);
-        }
-
-        .npc-text { max-width: 800px; margin: 0 auto; }
 
         /* Testimonios */
         .testimonial-card {
@@ -270,9 +259,22 @@
 
         .btn-submit:hover { opacity: 0.9; transform: scale(1.02); }
 
-        /* Calificación */
-        .star { font-size: 2.5rem; cursor: pointer; color: #222; }
-        .star.active { color: var(--primary); text-shadow: 0 0 10px var(--primary); }
+        /* Calificación mejorada */
+        .rating-box {
+            background: #111;
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .star { font-size: 2.5rem; cursor: pointer; color: #222; transition: var(--transition); }
+        .star:hover { color: #444; }
+        .star.active { color: var(--primary); text-shadow: 0 0 15px rgba(0, 210, 255, 0.5); }
+        
+        #btn-submit-rating {
+            margin-top: 20px;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
 
         /* FAQ */
         .faq-container { max-width: 800px; margin: 0 auto; text-align: left; }
@@ -296,16 +298,136 @@
             display: inline-block;
             transition: var(--transition);
             box-shadow: 0 10px 30px rgba(0, 210, 255, 0.3);
+            cursor: pointer;
+            border: none;
         }
 
         .cta-button:hover { background: #fff; transform: translateY(-5px); }
 
         footer { padding: 60px; text-align: center; border-top: 1px solid #111; font-size: 0.8rem; color: #444; }
 
+        /* --- ESTILOS DEL CUESTIONARIO PREMIUM --- */
+        #quiz-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.96);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        #quiz-overlay.active { display: flex; opacity: 1; }
+
+        .quiz-container {
+            max-width: 600px;
+            width: 100%;
+            background: #0a0a0a;
+            border: 1px solid var(--primary);
+            border-radius: 30px;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 0 50px rgba(0, 210, 255, 0.15);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .close-quiz {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            color: #444;
+            font-size: 1.5rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .close-quiz:hover { color: #fff; }
+
+        .quiz-progress {
+            height: 4px;
+            background: #1a1a1a;
+            width: 100%;
+            margin-bottom: 30px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .quiz-progress-fill { height: 100%; background: var(--primary); width: 0%; transition: width 0.4s ease; }
+
+        .quiz-step { display: none; animation: slideUp 0.4s ease; }
+        .quiz-step.active { display: block; }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .quiz-options { display: grid; gap: 12px; margin-top: 25px; }
+
+        .quiz-option-btn {
+            background: #111;
+            color: white;
+            border: 1px solid #333;
+            padding: 18px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .quiz-option-btn:hover { border-color: var(--primary); background: rgba(0, 210, 255, 0.05); }
+
+        .quiz-textarea, .quiz-input {
+            width: 100%;
+            background: #111;
+            border: 1px solid #333;
+            padding: 15px;
+            color: white;
+            border-radius: 12px;
+            font-family: inherit;
+            margin-top: 15px;
+            resize: none;
+        }
+
+        .quiz-textarea:focus, .quiz-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            text-align: left;
+        }
+
+        .contact-field {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .contact-field label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-left: 5px;
+        }
+
         @media (max-width: 768px) {
             h2 { font-size: 2.5rem; }
             section { padding: 60px 5%; }
             .hero-content h1 { font-size: 4rem; }
+            .quiz-container { padding: 30px; }
+            .contact-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -321,156 +443,246 @@
         </div>
     </nav>
 
-    <section class="hero" id="inicio">
-        <div class="hero-content reveal active">
-            <h1 data-es="BIENVENIDO A <span>LA ACADEMIA</span>" data-en="WELCOME TO <span>THE ACADEMY</span>">BIENVENIDO A <span>LA ACADEMIA</span></h1>
-            <p style="font-size: 1.2rem; color: var(--text-muted); max-width: 700px;" 
-               data-es="El programa definitivo para jóvenes que buscan la excelencia física, mental y visual." 
-               data-en="The ultimate program for young people seeking physical, mental, and visual excellence.">
-                El programa definitivo para jóvenes que buscan la excelencia física, mental y visual.
-            </p>
-            <div style="margin-top: 40px;">
-                <a href="#curriculum" class="cta-button" data-es="VER EL PROGRAMA" data-en="SEE THE PROGRAM">VER EL PROGRAMA</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- El Fundador -->
-    <section id="fundador" class="reveal">
-        <h2 data-es="EL FUNDADOR" data-en="THE FOUNDER">EL FUNDADOR</h2>
-        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
-            <p style="font-size: 1.2rem; line-height: 1.8; color: var(--text-muted);" 
-               data-es='"Soy Javier F. Delgado González. No creo en la suerte, creo en los sistemas. Mi sistema ha ayudado a decenas de jóvenes a reconstruir su autoconcepto mediante el entrenamiento real y la disciplina. Aquí no vienes a intentar, vienes a convertirte en una Bestia."' 
-               data-en='"I am Javier F. Delgado González. I don&apos;t believe in luck, I believe in systems. My system has helped dozens of young people rebuild their self-concept through real training and discipline. You don&apos;t come here to try, you come here to become a Beast."'>
-                "Soy Javier F. Delgado González. No creo en la suerte, creo en los sistemas. Mi sistema ha ayudado a decenas de jóvenes a reconstruir su autoconcepto mediante el entrenamiento real y la disciplina. Aquí no vienes a intentar, vienes a convertirte en una Bestia."
-            </p>
-        </div>
-    </section>
-
-    <!-- PROGRAMA ACADÉMICO -->
-    <section id="curriculum" class="reveal">
-        <h2 data-es="PLAN DE ESTUDIOS" data-en="CURRICULUM">PLAN DE ESTUDIOS</h2>
-        <div class="curriculum-grid">
-            <div class="module-card">
-                <span class="module-number">MÓDULO 01</span>
-                <h3 data-es="Mentalidad de Élite" data-en="Elite Mindset">Mentalidad de Élite</h3>
-                <ul>
-                    <li data-es="Destrucción del NPC interior" data-en="Destroying the inner NPC">Destrucción del NPC interior</li>
-                    <li data-es="Hábitos de alto rendimiento" data-en="High-performance habits">Hábitos de alto rendimiento</li>
-                    <li data-es="Gestión del tiempo y foco" data-en="Time management and focus">Gestión del tiempo y foco</li>
-                </ul>
-            </div>
-            <div class="module-card">
-                <span class="module-number">MÓDULO 02</span>
-                <h3 data-es="Cuerpo de Bestia" data-en="Beast Body">Cuerpo de Bestia</h3>
-                <ul>
-                    <li data-es="Calistenia desde cero" data-en="Calisthenics from scratch">Calistenia desde cero</li>
-                    <li data-es="Nutrición funcional" data-en="Functional nutrition">Nutrición funcional</li>
-                    <li data-es="Recuperación y sueño" data-en="Recovery and sleep">Recuperación y sueño</li>
-                </ul>
-            </div>
-            <div class="module-card">
-                <span class="module-number">MÓDULO 03</span>
-                <h3 data-es="El Código Visual" data-en="The Visual Code">El Código Visual</h3>
-                <ul>
-                    <li data-es="Skincare y cuidado personal" data-en="Skincare and personal care">Skincare y cuidado personal</li>
-                    <li data-es="Postura y lenguaje corporal" data-en="Posture and body language">Postura y lenguaje corporal</li>
-                    <li data-es="Psicología del color y estilo" data-en="Color psychology and style">Psicología del color y estilo</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- EL MUNDO NO NECESITA OTRO NPC -->
-    <section class="reveal">
-        <div class="npc-section">
-            <div class="npc-text">
-                <h2 style="margin-bottom: 20px;" data-es="EL MUNDO NO NECESITA OTRO NPC" data-en="THE WORLD DOESN'T NEED ANOTHER NPC">EL MUNDO NO NECESITA OTRO NPC</h2>
-                <p style="margin-bottom: 25px; color: var(--text-muted);" 
-                   data-es="La mayoría de la gente simplemente sigue el guion que otros escribieron para ellos. Caminan, hablan y piensan como personajes secundarios. En la academia te damos las herramientas para que tú seas el autor de tu propia historia." 
-                   data-en="Most people just follow the script others wrote for them. They walk, talk, and think like side characters. In the academy, we give you the tools to be the author of your own story.">
-                    La mayoría de la gente simplemente sigue el guion que otros escribieron para ellos. Caminan, hablan y piensan como personajes secundarios. En la academia te damos las herramientas para que tú seas el autor de tu propia historia.
+    <div id="main-wrapper">
+        <section class="hero" id="inicio">
+            <div class="hero-content reveal active">
+                <h1 data-es="BIENVENIDO A <span>LA ACADEMIA</span>" data-en="WELCOME TO <span>THE ACADEMY</span>">BIENVENIDO A <span>LA ACADEMIA</span></h1>
+                <p style="font-size: 1.2rem; color: var(--text-muted); max-width: 700px;" 
+                   data-es="El programa definitivo para jóvenes que buscan la excelencia física, mental y visual." 
+                   data-en="The ultimate program for young people seeking physical, mental, and visual excellence.">
+                    El programa definitivo para jóvenes que buscan la excelencia física, mental y visual.
                 </p>
-                <div style="color: var(--primary); font-weight: 700; font-size: 1.2rem; text-transform: uppercase;" data-es="¿ESTÁS LISTO PARA EL CAMBIO?" data-en="ARE YOU READY FOR THE CHANGE?">¿ESTÁS LISTO PARA EL CAMBIO?</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonios -->
-    <section id="testimonios" class="reveal">
-        <h2 data-es="TESTIMONIOS DE ESTUDIANTES" data-en="STUDENT TESTIMONIALS">TESTIMONIOS DE ESTUDIANTES</h2>
-        
-        <!-- Lista de testimonios -->
-        <div class="curriculum-grid" id="testimonial-list">
-            <div class="testimonial-card">
-                <p data-es='"Pasé de ser un chico inseguro a tener una confianza inquebrantable."' data-en='"I went from being an insecure boy to having unbreakable confidence."'>"Pasé de ser un chico inseguro a tener una confianza inquebrantable."</p>
-                <div class="testimonial-author">
-                    <span class="author-name">MARC R.</span>
-                    <span class="author-status" data-es="Graduado Módulo 02" data-en="Module 02 Graduate">Graduado Módulo 02</span>
+                <div style="margin-top: 40px;">
+                    <button onclick="openQuiz()" class="cta-button" data-es="UNIRSE A LA ACADEMIA" data-en="JOIN THE ACADEMY">UNIRSE A LA ACADEMIA</button>
                 </div>
             </div>
-            <div class="testimonial-card">
-                <p data-es='"El soporte de Javier es lo que marca la diferencia."' data-en='"Javier&apos;s support is what makes the difference."'>"El soporte de Javier es lo que marca la diferencia."</p>
-                <div class="testimonial-author">
-                    <span class="author-name">DAVID S.</span>
-                    <span class="author-status" data-es="Estudiante Activo" data-en="Active Student">Estudiante Activo</span>
+        </section>
+
+        <!-- El Fundador -->
+        <section id="fundador" class="reveal">
+            <h2 data-es="EL FUNDADOR" data-en="THE FOUNDER">EL FUNDADOR</h2>
+            <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                <p style="font-size: 1.2rem; line-height: 1.8; color: var(--text-muted);" 
+                   data-es='"Soy Javier F. Delgado González. No creo en la suerte, creo en los sistemas. Mi sistema ha ayudado a decenas de jóvenes a reconstruir su autoconcepto mediante el entrenamiento real y la disciplina. Aquí no vienes a intentar, vienes a convertirte en una Bestia."' 
+                   data-en='"I am Javier F. Delgado González. I don&apos;t believe in luck, I believe in systems. My system has helped dozens of young people rebuild their self-concept through real training and discipline. You don&apos;t come here to try, you come here to become a Beast."'>
+                    "Soy Javier F. Delgado González. No creo en la suerte, creo en los sistemas. Mi sistema ha ayudado a decenas de jóvenes a reconstruir su autoconcepto mediante el entrenamiento real y la disciplina. Aquí no vienes a intentar, vienes a convertirte en una Bestia."
+                </p>
+            </div>
+        </section>
+
+        <!-- PROGRAMA ACADÉMICO -->
+        <section id="curriculum" class="reveal">
+            <h2 data-es="PLAN DE ESTUDIOS" data-en="CURRICULUM">PLAN DE ESTUDIOS</h2>
+            <div class="curriculum-grid">
+                <div class="module-card">
+                    <span class="module-number">MÓDULO 01</span>
+                    <h3 data-es="Mentalidad de Élite" data-en="Elite Mindset">Mentalidad de Élite</h3>
+                    <ul>
+                        <li data-es="Destrucción del NPC interior" data-en="Destroying the inner NPC">Destrucción del NPC interior</li>
+                        <li data-es="Hábitos de alto rendimiento" data-en="High-performance habits">Hábitos de alto rendimiento</li>
+                        <li data-es="Gestión del tiempo y foco" data-en="Time management and focus">Gestión del tiempo y foco</li>
+                    </ul>
+                </div>
+                <div class="module-card">
+                    <span class="module-number">MÓDULO 02</span>
+                    <h3 data-es="Cuerpo de Bestia" data-en="Beast Body">Cuerpo de Bestia</h3>
+                    <ul>
+                        <li data-es="Calistenia desde cero" data-en="Calisthenics from scratch">Calistenia desde cero</li>
+                        <li data-es="Nutrición funcional" data-en="Functional nutrition">Nutrición funcional</li>
+                        <li data-es="Recuperación y sueño" data-en="Recovery and sleep">Recuperación y sueño</li>
+                    </ul>
+                </div>
+                <div class="module-card">
+                    <span class="module-number">MÓDULO 03</span>
+                    <h3 data-es="El Código Visual" data-en="The Visual Code">El Código Visual</h3>
+                    <ul>
+                        <li data-es="Skincare y cuidado personal" data-en="Skincare and personal care">Skincare y cuidado personal</li>
+                        <li data-es="Postura y lenguaje corporal" data-en="Posture and body language">Postura y lenguaje corporal</li>
+                        <li data-es="Psicología del color y estilo" data-en="Color psychology and style">Psicología del color y estilo</li>
+                    </ul>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- Formulario para escribir uno nuevo -->
-        <div class="testimonial-form reveal">
-            <h3 style="text-align: center; margin-bottom: 20px; font-family: 'Bebas Neue';" data-es="DEJA TU PROPIO TESTIMONIO" data-en="LEAVE YOUR OWN TESTIMONIAL">DEJA TU PROPIO TESTIMONIO</h3>
-            <input type="text" id="user-name" placeholder="Tu nombre / Your name" required>
-            <input type="text" id="user-status" placeholder="Tu estado (ej: Estudiante Activo) / Your status" required>
-            <textarea id="user-comment" rows="4" placeholder="Cuéntanos tu transformación... / Tell us your transformation..." required></textarea>
-            <button class="btn-submit" onclick="addTestimonial()" data-es="PUBLICAR TESTIMONIO" data-en="PUBLISH TESTIMONIAL">PUBLICAR TESTIMONIO</button>
-        </div>
-    </section>
-
-    <!-- Calificación y FAQ -->
-    <section class="reveal">
-        <div style="display: flex; flex-wrap: wrap; gap: 40px;">
-            <div style="flex: 1; min-width: 300px; text-align: center;">
-                <h2 data-es="CALIFICACIÓN" data-en="RATING">CALIFICACIÓN</h2>
-                <div class="stars-container" id="stars">
-                    <span class="star" data-v="1">★</span>
-                    <span class="star" data-v="2">★</span>
-                    <span class="star" data-v="3">★</span>
-                    <span class="star" data-v="4">★</span>
-                    <span class="star" data-v="5">★</span>
-                </div>
-                <p id="star-msg" style="margin-top: 20px; color: var(--primary); font-weight: 700;"></p>
-            </div>
-            <div style="flex: 1; min-width: 300px;">
-                <h2 data-es="PREGUNTAS" data-en="QUESTIONS">PREGUNTAS</h2>
-                <div class="faq-container">
-                    <div class="faq-item">
-                        <h4 data-es="¿Es para principiantes?" data-en="Is it for beginners?">¿Es para principiantes?</h4>
-                        <p style="font-size: 0.8rem; color: #777;" data-es="Sí, el programa está diseñado para llevarte de cero a cien." data-en="Yes, the program is designed to take you from zero to a hundred.">Sí, el programa está diseñado para llevarte de cero a cien.</p>
+        <!-- Testimonios -->
+        <section id="testimonios" class="reveal">
+            <h2 data-es="TESTIMONIOS DE ESTUDIANTES" data-en="STUDENT TESTIMONIALS">TESTIMONIOS DE ESTUDIANTES</h2>
+            
+            <div class="curriculum-grid" id="testimonial-list">
+                <div class="testimonial-card">
+                    <p data-es='"Pasé de ser un chico inseguro a tener una confianza inquebrantable."' data-en='"I went from being an insecure boy to having unbreakable confidence."'>"Pasé de ser un chico inseguro a tener una confianza inquebrantable."</p>
+                    <div class="testimonial-author">
+                        <span class="author-name">MARC R.</span>
+                        <span class="author-status" data-es="Graduado Módulo 02" data-en="Module 02 Graduate">Graduado Módulo 02</span>
                     </div>
-                    <div class="faq-item">
-                        <h4 data-es="¿Cuánto tiempo dura?" data-en="How long does it last?">¿Cuánto tiempo dura?</h4>
-                        <p style="font-size: 0.8rem; color: #777;" data-es="Acceso de por vida con actualizaciones mensuales." data-en="Lifetime access with monthly updates.">Acceso de por vida con actualizaciones mensuales.</p>
+                </div>
+                <div class="testimonial-card">
+                    <p data-es='"El soporte de Javier es lo que marca la diferencia."' data-en='"Javier&apos;s support is what makes the difference."'>"El soporte de Javier es lo que marca la diferencia."</p>
+                    <div class="testimonial-author">
+                        <span class="author-name">DAVID S.</span>
+                        <span class="author-status" data-es="Estudiante Activo" data-en="Active Student">Estudiante Activo</span>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <div class="cta-box reveal">
-        <h2 data-es="COMIENZA TU TRANSFORMACIÓN" data-en="START YOUR TRANSFORMATION">COMIENZA TU TRANSFORMACIÓN</h2>
-        <a href="https://instagram.com/javier.gz.00" target="_blank" class="cta-button" data-es="UNIRSE A LA ACADEMIA" data-en="JOIN THE ACADEMY">UNIRSE A LA ACADEMIA</a>
-        <p style="margin-top: 20px; color: #555; font-size: 0.9rem;" data-es="Garantía de satisfacción de 7 días." data-en="7-day satisfaction guarantee.">Garantía de satisfacción de 7 días.</p>
+            <div class="testimonial-form reveal">
+                <h3 style="text-align: center; margin-bottom: 20px; font-family: 'Bebas Neue';" data-es="DEJA TU PROPIO TESTIMONIO" data-en="LEAVE YOUR OWN TESTIMONIAL">DEJA TU PROPIO TESTIMONIO</h3>
+                <input type="text" id="user-name" placeholder="Tu nombre / Your name" required>
+                <input type="text" id="user-status" placeholder="Tu estado (ej: Estudiante Activo) / Your status" required>
+                <textarea id="user-comment" rows="4" placeholder="Cuéntanos tu transformación... / Tell us your transformation..." required></textarea>
+                <button class="btn-submit" onclick="addTestimonial()" data-es="PUBLICAR TESTIMONIO" data-en="PUBLISH TESTIMONIAL">PUBLICAR TESTIMONIO</button>
+            </div>
+        </section>
+
+        <!-- Calificación y FAQ -->
+        <section class="reveal">
+            <div style="display: flex; flex-wrap: wrap; gap: 40px;">
+                <div style="flex: 1; min-width: 300px; text-align: center;">
+                    <h2 data-es="CALIFICACIÓN" data-en="RATING">CALIFICACIÓN</h2>
+                    <div class="rating-box">
+                        <p style="margin-bottom: 15px; font-size: 0.9rem; color: var(--text-muted);" 
+                           data-es="¿Cómo valorarías tu experiencia con nuestra academia?" 
+                           data-en="How would you rate your experience with our academy?">
+                           ¿Cómo valorarías tu experiencia con nuestra academia?
+                        </p>
+                        <div class="stars-container" id="stars">
+                            <span class="star" data-v="1">★</span>
+                            <span class="star" data-v="2">★</span>
+                            <span class="star" data-v="3">★</span>
+                            <span class="star" data-v="4">★</span>
+                            <span class="star" data-v="5">★</span>
+                        </div>
+                        <button id="btn-submit-rating" class="btn-submit" onclick="submitRating()" 
+                                data-es="ENVIAR PUNTUACIÓN" data-en="SUBMIT RATING">
+                            ENVIAR PUNTUACIÓN
+                        </button>
+                        <p id="star-msg" style="margin-top: 20px; color: var(--primary); font-weight: 700; height: 24px;"></p>
+                    </div>
+                </div>
+                <div style="flex: 1; min-width: 300px;">
+                    <h2 data-es="PREGUNTAS" data-en="QUESTIONS">PREGUNTAS</h2>
+                    <div class="faq-container">
+                        <div class="faq-item">
+                            <h4 data-es="¿Es para principiantes?" data-en="Is it for beginners?">¿Es para principiantes?</h4>
+                            <p style="font-size: 0.8rem; color: #777;" data-es="Sí, el programa está diseñado para llevarte de cero a cien." data-en="Yes, the program is designed to take you from zero to a hundred.">Sí, el programa está diseñado para llevarte de cero a cien.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h4 data-es="¿Cuánto tiempo dura?" data-en="How long does it last?">¿Cuánto tiempo dura?</h4>
+                            <p style="font-size: 0.8rem; color: #777;" data-es="Acceso de por vida con actualizaciones mensuales." data-en="Lifetime access with monthly updates.">Acceso de por vida con actualizaciones mensuales.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="cta-box reveal">
+            <h2 data-es="COMIENZA TU TRANSFORMACIÓN" data-en="START YOUR TRANSFORMATION">COMIENZA TU TRANSFORMACIÓN</h2>
+            <button onclick="openQuiz()" class="cta-button" data-es="UNIRSE A LA ACADEMIA" data-en="JOIN THE ACADEMY">UNIRSE A LA ACADEMIA</button>
+        </div>
+
+        <footer>
+            <p style="color: var(--primary); letter-spacing: 2px;">CÓDIGOS DE BESTIA</p>
+            <p style="margin-top: 10px;">© 2024 JAVIER F. DELGADO GONZÁLEZ. TODOS LOS DERECHOS RESERVADOS.</p>
+        </footer>
     </div>
 
-    <footer>
-        <p style="color: var(--primary); letter-spacing: 2px;">CÓDIGOS DE BESTIA</p>
-        <p style="margin-top: 10px;">© 2024 JAVIER F. DELGADO GONZÁLEZ. TODOS LOS DERECHOS RESERVADOS.</p>
-    </footer>
+    <!-- CUESTIONARIO PREMIUM -->
+    <div id="quiz-overlay">
+        <div class="quiz-container">
+            <button class="close-quiz" onclick="closeQuiz()">✕</button>
+            <div class="quiz-progress"><div class="quiz-progress-fill" id="quiz-progress-bar"></div></div>
+
+            <div id="quiz-steps-container">
+                <div class="quiz-step active" data-step="1">
+                    <h2 style="font-size: 2.2rem; margin-bottom: 10px;" data-es="TU EDAD" data-en="YOUR AGE">TU EDAD</h2>
+                    <p data-es="Selecciona tu rango de edad para personalizar tu camino." data-en="Select your age range to customize your path.">Selecciona tu rango de edad para personalizar tu camino.</p>
+                    <div class="quiz-options">
+                        <button class="quiz-option-btn" onclick="nextQuizStep(true)">Menos de 15 años</button>
+                        <button class="quiz-option-btn" onclick="nextQuizStep(true)">15 - 18 años</button>
+                        <button class="quiz-option-btn" onclick="nextQuizStep(true)">Más de 18 años</button>
+                    </div>
+                </div>
+
+                <div class="quiz-step" data-step="2">
+                    <h2 style="font-size: 2.2rem; margin-bottom: 10px;" data-es="TU OBJETIVO" data-en="YOUR GOAL">TU OBJETIVO</h2>
+                    <p data-es="¿Qué área del desarrollo personal quieres fortalecer primero?" data-en="Which area of personal development do you want to strengthen first?">¿Qué área del desarrollo personal quieres fortalecer primero?</p>
+                    <div class="quiz-options">
+                        <button class="quiz-option-btn" onclick="nextQuizStep(true)">Autodisciplina y Enfoque</button>
+                        <button class="quiz-option-btn" onclick="nextQuizStep(true)">Confianza y Autoestima</button>
+                        <button class="quiz-option-btn" onclick="nextQuizStep(true)">Hábitos Saludables</button>
+                        <button class="quiz-option-btn" onclick="nextQuizStep(true)">Inteligencia Emocional</button>
+                    </div>
+                </div>
+
+                <div class="quiz-step" data-step="3">
+                    <h2 style="font-size: 2.2rem; margin-bottom: 10px;" data-es="TU SITUACIÓN" data-en="YOUR SITUATION">TU SITUACIÓN</h2>
+                    <p data-es="Escribe brevemente tu situación actual." data-en="Briefly describe your current situation.">Escribe brevemente tu situación actual.</p>
+                    <textarea id="quiz-situation-text" class="quiz-textarea" rows="4" placeholder="Ej: Me siento estancado..."></textarea>
+                    <div class="quiz-options">
+                        <button class="quiz-option-btn" onclick="validateSituationStep()" style="background: var(--primary); color: black; border: none;">CONTINUAR</button>
+                    </div>
+                </div>
+
+                <div class="quiz-step" data-step="4">
+                    <h2 style="font-size: 2.2rem; margin-bottom: 10px;" data-es="PRUEBA 1: DISCIPLINA" data-en="TRIAL 1: DISCIPLINE">PRUEBA 1: DISCIPLINA</h2>
+                    <p data-es="¿Entrenas aunque estés cansado?" data-en="Do you train even if you're tired?">¿Entrenas aunque estés cansado?</p>
+                    <div class="quiz-options">
+                        <button class="quiz-option-btn" onclick="nextQuizStep(true)">Sí, el plan es ley.</button>
+                        <button class="quiz-option-btn" onclick="nextQuizStep(false)">No, prefiero descansar.</button>
+                    </div>
+                </div>
+
+                <div class="quiz-step" data-step="5">
+                    <h2 style="font-size: 2.2rem; margin-bottom: 10px;" data-es="PRUEBA 2: VISIÓN" data-en="TRIAL 2: VISION">PRUEBA 2: VISIÓN</h2>
+                    <p data-es="¿Estás aquí para transformarte?" data-en="Are you here to transform?">¿Estás aquí para transformarte?</p>
+                    <div class="quiz-options">
+                        <button class="quiz-option-btn" onclick="nextQuizStep(true)">Vengo a ser una Bestia.</button>
+                        <button class="quiz-option-btn" onclick="nextQuizStep(false)">Vengo a probar suerte.</button>
+                    </div>
+                </div>
+
+                <div class="quiz-step" data-step="6">
+                    <h2 style="font-size: 2.2rem; margin-bottom: 10px;" data-es="DATOS DE CONTACTO" data-en="CONTACT INFORMATION">DATOS DE CONTACTO</h2>
+                    <div class="contact-grid" style="margin-top: 20px;">
+                        <div class="contact-field">
+                            <label data-es="Nombre" data-en="First Name">Nombre</label>
+                            <input type="text" id="quiz-fname" class="quiz-input" style="margin-top:0;" placeholder="Juan">
+                        </div>
+                        <div class="contact-field">
+                            <label data-es="Apellido" data-en="Last Name">Apellido</label>
+                            <input type="text" id="quiz-lname" class="quiz-input" style="margin-top:0;" placeholder="Pérez">
+                        </div>
+                        <div class="contact-field" style="grid-column: 1 / -1;">
+                            <label data-es="Correo Electrónico" data-en="Email Address">Correo Electrónico</label>
+                            <input type="email" id="quiz-email" class="quiz-input" style="margin-top:0;" placeholder="juan@ejemplo.com">
+                        </div>
+                        <div class="contact-field" style="grid-column: 1 / -1;">
+                            <label data-es="Número de Teléfono" data-en="Phone Number">Número de Teléfono</label>
+                            <input type="tel" id="quiz-phone" class="quiz-input" style="margin-top:0;" placeholder="+34 600 000 000">
+                        </div>
+                    </div>
+                    <div class="quiz-options" style="margin-top: 25px;">
+                        <button class="quiz-option-btn" onclick="validateContactStep()" style="background: var(--primary); color: black; border: none;">FINALIZAR</button>
+                    </div>
+                </div>
+
+                <div class="quiz-step" id="quiz-final-result">
+                    <h2 id="quiz-status-title">ANALIZANDO...</h2>
+                    <p id="quiz-status-desc" style="margin: 20px 0; color: var(--text-muted);"></p>
+                    <div id="quiz-final-action"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         let lang = 'es';
+        let currentQuizStep = 1;
+        let quizScore = 0;
+        let currentRatingValue = 0;
+        let ratingSubmitted = false;
+        const totalQuizSteps = 6;
+        const WHATSAPP_NUMBER = "5841621422677";
 
         function toggleLanguage() {
             lang = lang === 'es' ? 'en' : 'es';
@@ -478,77 +690,163 @@
                 el.innerHTML = el.getAttribute('data-' + lang);
             });
             
-            // Actualizar placeholders
-            const nameInput = document.getElementById('user-name');
-            const statusInput = document.getElementById('user-status');
-            const commentInput = document.getElementById('user-comment');
-            
-            if(lang === 'en') {
-                nameInput.placeholder = "Your name";
-                statusInput.placeholder = "Your status (e.g. Active Student)";
-                commentInput.placeholder = "Tell us your transformation...";
-            } else {
-                nameInput.placeholder = "Tu nombre";
-                statusInput.placeholder = "Tu estado (ej: Estudiante Activo)";
-                commentInput.placeholder = "Cuéntanos tu transformación...";
+            const placeholders = {
+                'user-name': ["Tu nombre", "Your name"],
+                'user-status': ["Tu estado", "Your status"],
+                'user-comment': ["Cuéntanos tu transformación...", "Tell us your transformation..."],
+                'quiz-fname': ["Juan", "John"],
+                'quiz-lname': ["Pérez", "Doe"]
+            };
+
+            for (let id in placeholders) {
+                const el = document.getElementById(id);
+                if(el) el.placeholder = lang === 'es' ? placeholders[id][0] : placeholders[id][1];
             }
         }
 
-        // Función para añadir testimonio
-        function addTestimonial() {
-            const name = document.getElementById('user-name').value.trim();
-            const status = document.getElementById('user-status').value.trim();
-            const comment = document.getElementById('user-comment').value.trim();
-
-            if (!name || !status || !comment) {
-                const msg = lang === 'es' ? "Por favor, completa todos los campos." : "Please fill in all fields.";
-                alert(msg);
-                return;
-            }
-
-            const list = document.getElementById('testimonial-list');
-            const card = document.createElement('div');
-            card.className = 'testimonial-card';
-            card.innerHTML = `
-                <p>"${comment}"</p>
-                <div class="testimonial-author">
-                    <span class="author-name">${name.toUpperCase()}</span>
-                    <span class="author-status">${status}</span>
-                </div>
-            `;
-            
-            list.appendChild(card);
-
-            // Limpiar formulario
-            document.getElementById('user-name').value = '';
-            document.getElementById('user-status').value = '';
-            document.getElementById('user-comment').value = '';
-
-            const success = lang === 'es' ? "¡Testimonio publicado!" : "Testimonial published!";
-            alert(success);
-        }
-
-        // Estrellas
         const stars = document.querySelectorAll('.star');
+        const submitRatingBtn = document.getElementById('btn-submit-rating');
+        const starMsg = document.getElementById('star-msg');
+
         stars.forEach(s => {
             s.onclick = function() {
-                const val = this.dataset.v;
-                stars.forEach((st, i) => st.classList.toggle('active', i < val));
-                const msg = document.getElementById('star-msg');
-                msg.innerText = lang === 'es' ? `¡Gracias por las ${val} estrellas!` : `Thanks for the ${val} stars!`;
+                if(ratingSubmitted) return;
+                currentRatingValue = parseInt(this.dataset.v);
+                updateStarsUI(currentRatingValue);
+                submitRatingBtn.style.display = 'block';
+                starMsg.innerText = '';
             }
         });
 
-        // Revelar elementos al scroll
+        function updateStarsUI(val) {
+            stars.forEach((st, i) => {
+                st.classList.toggle('active', i < val);
+            });
+        }
+
+        function submitRating() {
+            if(currentRatingValue === 0) return;
+            ratingSubmitted = true;
+            submitRatingBtn.style.display = 'none';
+            stars.forEach(s => s.style.cursor = 'default');
+            
+            starMsg.innerText = lang === 'es' 
+                ? `¡Gracias! Has calificado con ${currentRatingValue} estrellas.` 
+                : `Thank you! You rated us with ${currentRatingValue} stars.`;
+        }
+
+        function openQuiz() {
+            const overlay = document.getElementById('quiz-overlay');
+            const wrapper = document.getElementById('main-wrapper');
+            overlay.style.display = 'flex';
+            wrapper.style.filter = 'blur(15px)';
+            setTimeout(() => overlay.classList.add('active'), 10);
+        }
+
+        function closeQuiz() {
+            const overlay = document.getElementById('quiz-overlay');
+            const wrapper = document.getElementById('main-wrapper');
+            overlay.classList.remove('active');
+            wrapper.style.filter = 'none';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                resetQuiz();
+            }, 500);
+        }
+
+        function validateSituationStep() {
+            const text = document.getElementById('quiz-situation-text').value.trim();
+            if(text.length < 5) {
+                alert(lang === 'es' ? "Por favor, cuéntanos un poco más." : "Please tell us a bit more.");
+                return;
+            }
+            nextQuizStep(true);
+        }
+
+        function validateContactStep() {
+            const fields = ['quiz-fname', 'quiz-lname', 'quiz-email', 'quiz-phone'];
+            const allFilled = fields.every(id => document.getElementById(id).value.trim() !== '');
+            if (!allFilled) {
+                alert(lang === 'es' ? "Completa todos los datos." : "Fill in all data.");
+                return;
+            }
+            nextQuizStep(true);
+        }
+
+        function nextQuizStep(worthy) {
+            if(currentQuizStep >= 4 && currentQuizStep <= 5 && worthy) quizScore++;
+            else quizScore += 0.5;
+
+            document.querySelector(`.quiz-step[data-step="${currentQuizStep}"]`).classList.remove('active');
+            currentQuizStep++;
+            document.getElementById('quiz-progress-bar').style.width = `${((currentQuizStep-1)/totalQuizSteps)*100}%`;
+
+            const next = document.querySelector(`.quiz-step[data-step="${currentQuizStep}"]`);
+            if(next) next.classList.add('active');
+            else showQuizResult();
+        }
+
+        function redirectToWhatsApp() {
+            const fname = document.getElementById('quiz-fname').value;
+            const lname = document.getElementById('quiz-lname').value;
+            const situation = document.getElementById('quiz-situation-text').value;
+            
+            let message = lang === 'es' 
+                ? `Hola Javier, soy ${fname} ${lname}. He completado el test de Códigos de Bestia y me gustaría unirme a la academia. Mi situación actual: ${situation}`
+                : `Hi Javier, I'm ${fname} ${lname}. I completed the Beast Codes test and I'd like to join the academy. My current situation: ${situation}`;
+            
+            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+
+        function showQuizResult() {
+            const resultArea = document.getElementById('quiz-final-result');
+            const title = document.getElementById('quiz-status-title');
+            const desc = document.getElementById('quiz-status-desc');
+            const action = document.getElementById('quiz-final-action');
+            resultArea.classList.add('active');
+
+            if(quizScore >= 3.5) {
+                title.innerText = lang === 'es' ? "¡BIENVENIDO!" : "WELCOME!";
+                title.style.color = "var(--primary)";
+                desc.innerText = lang === 'es' ? "Tu perfil encaja. Haz clic abajo para contactar directamente por WhatsApp." : "Your profile fits. Click below to contact directly via WhatsApp.";
+                action.innerHTML = `<button onclick="redirectToWhatsApp()" class="cta-button" style="background: #25D366; color: white;">ENVIAR WHATSAPP</button>`;
+            } else {
+                title.innerText = lang === 'es' ? "NO APTO" : "NOT ELIGIBLE";
+                title.style.color = "#ff4d4d";
+                desc.innerText = lang === 'es' ? "Necesitas trabajar más en tu enfoque antes de entrar." : "You need to work more on your focus before joining.";
+                action.innerHTML = `<button onclick="closeQuiz()" class="cta-button">CERRAR</button>`;
+            }
+        }
+
+        function resetQuiz() {
+            currentQuizStep = 1; quizScore = 0;
+            document.querySelectorAll('.quiz-step').forEach(s => s.classList.remove('active'));
+            document.querySelector('.quiz-step[data-step="1"]').classList.add('active');
+            document.getElementById('quiz-progress-bar').style.width = '0%';
+        }
+
+        function addTestimonial() {
+            const name = document.getElementById('user-name').value;
+            const status = document.getElementById('user-status').value;
+            const comment = document.getElementById('user-comment').value;
+            if(!name || !comment) return;
+            const list = document.getElementById('testimonial-list');
+            const card = document.createElement('div');
+            card.className = 'testimonial-card';
+            card.innerHTML = `<p>"${comment}"</p><div class="testimonial-author"><span class="author-name">${name.toUpperCase()}</span><span class="author-status">${status}</span></div>`;
+            list.appendChild(card);
+            document.getElementById('user-name').value = '';
+            document.getElementById('user-status').value = '';
+            document.getElementById('user-comment').value = '';
+        }
+
         function reveal() {
             document.querySelectorAll('.reveal').forEach(el => {
-                if (el.getBoundingClientRect().top < window.innerHeight - 100) {
-                    el.classList.add('active');
-                }
+                if (el.getBoundingClientRect().top < window.innerHeight - 50) el.classList.add('active');
             });
         }
         window.addEventListener('scroll', reveal);
-        window.addEventListener('load', reveal);
     </script>
 </body>
 </html>
