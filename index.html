@@ -265,7 +265,17 @@
             padding: 40px;
             border-radius: 20px;
             border: 1px solid rgba(255,255,255,0.05);
+            text-align: center;
         }
+        
+        .avg-rating-display {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
         .star { font-size: 2.5rem; cursor: pointer; color: #222; transition: var(--transition); }
         .star:hover { color: #444; }
         .star.active { color: var(--primary); text-shadow: 0 0 15px rgba(0, 210, 255, 0.5); }
@@ -509,20 +519,7 @@
             <h2 data-es="TESTIMONIOS DE ESTUDIANTES" data-en="STUDENT TESTIMONIALS">TESTIMONIOS DE ESTUDIANTES</h2>
             
             <div class="curriculum-grid" id="testimonial-list">
-                <div class="testimonial-card">
-                    <p data-es='"Pasé de ser un chico inseguro a tener una confianza inquebrantable."' data-en='"I went from being an insecure boy to having unbreakable confidence."'>"Pasé de ser un chico inseguro a tener una confianza inquebrantable."</p>
-                    <div class="testimonial-author">
-                        <span class="author-name">MARC R.</span>
-                        <span class="author-status" data-es="Graduado Módulo 02" data-en="Module 02 Graduate">Graduado Módulo 02</span>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <p data-es='"El soporte de Javier es lo que marca la diferencia."' data-en='"Javier&apos;s support is what makes the difference."'>"El soporte de Javier es lo que marca la diferencia."</p>
-                    <div class="testimonial-author">
-                        <span class="author-name">DAVID S.</span>
-                        <span class="author-status" data-es="Estudiante Activo" data-en="Active Student">Estudiante Activo</span>
-                    </div>
-                </div>
+                <!-- Los testimonios se cargarán desde la base de datos -->
             </div>
 
             <div class="testimonial-form reveal">
@@ -540,12 +537,18 @@
                 <div style="flex: 1; min-width: 300px; text-align: center;">
                     <h2 data-es="CALIFICACIÓN" data-en="RATING">CALIFICACIÓN</h2>
                     <div class="rating-box">
+                        <div class="avg-rating-display" id="avg-num">0.0</div>
+                        <div id="avg-stars-container" style="font-size: 1.5rem; margin-bottom: 10px;"></div>
+                        <p id="total-votes-count" style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 25px;">Conectando...</p>
+                        
+                        <hr style="border: 0; border-top: 1px solid #222; margin-bottom: 25px;">
+
                         <p style="margin-bottom: 15px; font-size: 0.9rem; color: var(--text-muted);" 
-                           data-es="¿Cómo valorarías tu experiencia con nuestra academia?" 
-                           data-en="How would you rate your experience with our academy?">
-                           ¿Cómo valorarías tu experiencia con nuestra academia?
+                           data-es="¿Cómo valorarías tu experiencia?" 
+                           data-en="How would you rate your experience?">
+                           ¿Cómo valorarías tu experiencia?
                         </p>
-                        <div class="stars-container" id="stars">
+                        <div class="stars-container" id="stars-input">
                             <span class="star" data-v="1">★</span>
                             <span class="star" data-v="2">★</span>
                             <span class="star" data-v="3">★</span>
@@ -576,7 +579,7 @@
         </section>
 
         <div class="cta-box reveal">
-            <h2 data-es="COMIENZA TU TRANSFORMACIÓN" data-en="START YOUR TRANSFORMATION">COMIENZA TU TRANSFORMACIÓN</h2>
+            <h2 data-es="COMIENZA TU TRANSFORMACIÓN" data-en="START YOUR TRANSFORMATIONS">COMIENZA TU TRANSFORMACIÓN</h2>
             <button onclick="openQuiz()" class="cta-button" data-es="UNIRSE A LA ACADEMIA" data-en="JOIN THE ACADEMY">UNIRSE A LA ACADEMIA</button>
         </div>
 
@@ -595,7 +598,6 @@
             <div id="quiz-steps-container">
                 <div class="quiz-step active" data-step="1">
                     <h2 style="font-size: 2.2rem; margin-bottom: 10px;" data-es="TU EDAD" data-en="YOUR AGE">TU EDAD</h2>
-                    <p data-es="Selecciona tu rango de edad para personalizar tu camino." data-en="Select your age range to customize your path.">Selecciona tu rango de edad para personalizar tu camino.</p>
                     <div class="quiz-options">
                         <button class="quiz-option-btn" onclick="nextQuizStep(true)">Menos de 15 años</button>
                         <button class="quiz-option-btn" onclick="nextQuizStep(true)">15 - 18 años</button>
@@ -605,18 +607,14 @@
 
                 <div class="quiz-step" data-step="2">
                     <h2 style="font-size: 2.2rem; margin-bottom: 10px;" data-es="TU OBJETIVO" data-en="YOUR GOAL">TU OBJETIVO</h2>
-                    <p data-es="¿Qué área del desarrollo personal quieres fortalecer primero?" data-en="Which area of personal development do you want to strengthen first?">¿Qué área del desarrollo personal quieres fortalecer primero?</p>
                     <div class="quiz-options">
                         <button class="quiz-option-btn" onclick="nextQuizStep(true)">Autodisciplina y Enfoque</button>
                         <button class="quiz-option-btn" onclick="nextQuizStep(true)">Confianza y Autoestima</button>
-                        <button class="quiz-option-btn" onclick="nextQuizStep(true)">Hábitos Saludables</button>
-                        <button class="quiz-option-btn" onclick="nextQuizStep(true)">Inteligencia Emocional</button>
                     </div>
                 </div>
 
                 <div class="quiz-step" data-step="3">
                     <h2 style="font-size: 2.2rem; margin-bottom: 10px;" data-es="TU SITUACIÓN" data-en="YOUR SITUATION">TU SITUACIÓN</h2>
-                    <p data-es="Escribe brevemente tu situación actual." data-en="Briefly describe your current situation.">Escribe brevemente tu situación actual.</p>
                     <textarea id="quiz-situation-text" class="quiz-textarea" rows="4" placeholder="Ej: Me siento estancado..."></textarea>
                     <div class="quiz-options">
                         <button class="quiz-option-btn" onclick="validateSituationStep()" style="background: var(--primary); color: black; border: none;">CONTINUAR</button>
@@ -625,7 +623,6 @@
 
                 <div class="quiz-step" data-step="4">
                     <h2 style="font-size: 2.2rem; margin-bottom: 10px;" data-es="PRUEBA 1: DISCIPLINA" data-en="TRIAL 1: DISCIPLINE">PRUEBA 1: DISCIPLINA</h2>
-                    <p data-es="¿Entrenas aunque estés cansado?" data-en="Do you train even if you're tired?">¿Entrenas aunque estés cansado?</p>
                     <div class="quiz-options">
                         <button class="quiz-option-btn" onclick="nextQuizStep(true)">Sí, el plan es ley.</button>
                         <button class="quiz-option-btn" onclick="nextQuizStep(false)">No, prefiero descansar.</button>
@@ -634,7 +631,6 @@
 
                 <div class="quiz-step" data-step="5">
                     <h2 style="font-size: 2.2rem; margin-bottom: 10px;" data-es="PRUEBA 2: VISIÓN" data-en="TRIAL 2: VISION">PRUEBA 2: VISIÓN</h2>
-                    <p data-es="¿Estás aquí para transformarte?" data-en="Are you here to transform?">¿Estás aquí para transformarte?</p>
                     <div class="quiz-options">
                         <button class="quiz-option-btn" onclick="nextQuizStep(true)">Vengo a ser una Bestia.</button>
                         <button class="quiz-option-btn" onclick="nextQuizStep(false)">Vengo a probar suerte.</button>
@@ -643,25 +639,13 @@
 
                 <div class="quiz-step" data-step="6">
                     <h2 style="font-size: 2.2rem; margin-bottom: 10px;" data-es="DATOS DE CONTACTO" data-en="CONTACT INFORMATION">DATOS DE CONTACTO</h2>
-                    <div class="contact-grid" style="margin-top: 20px;">
-                        <div class="contact-field">
-                            <label data-es="Nombre" data-en="First Name">Nombre</label>
-                            <input type="text" id="quiz-fname" class="quiz-input" style="margin-top:0;" placeholder="Juan">
-                        </div>
-                        <div class="contact-field">
-                            <label data-es="Apellido" data-en="Last Name">Apellido</label>
-                            <input type="text" id="quiz-lname" class="quiz-input" style="margin-top:0;" placeholder="Pérez">
-                        </div>
-                        <div class="contact-field" style="grid-column: 1 / -1;">
-                            <label data-es="Correo Electrónico" data-en="Email Address">Correo Electrónico</label>
-                            <input type="email" id="quiz-email" class="quiz-input" style="margin-top:0;" placeholder="juan@ejemplo.com">
-                        </div>
-                        <div class="contact-field" style="grid-column: 1 / -1;">
-                            <label data-es="Número de Teléfono" data-en="Phone Number">Número de Teléfono</label>
-                            <input type="tel" id="quiz-phone" class="quiz-input" style="margin-top:0;" placeholder="+34 600 000 000">
-                        </div>
+                    <div class="contact-grid">
+                        <input type="text" id="quiz-fname" class="quiz-input" placeholder="Nombre">
+                        <input type="text" id="quiz-lname" class="quiz-input" placeholder="Apellido">
+                        <input type="email" id="quiz-email" class="quiz-input" style="grid-column: 1 / -1;" placeholder="juan@ejemplo.com">
+                        <input type="tel" id="quiz-phone" class="quiz-input" style="grid-column: 1 / -1;" placeholder="+34 600 000 000">
                     </div>
-                    <div class="quiz-options" style="margin-top: 25px;">
+                    <div class="quiz-options">
                         <button class="quiz-option-btn" onclick="validateContactStep()" style="background: var(--primary); color: black; border: none;">FINALIZAR</button>
                     </div>
                 </div>
@@ -675,12 +659,178 @@
         </div>
     </div>
 
+    <!-- FIREBASE LOGIC -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Global Variables
+        const firebaseConfig = JSON.parse(__firebase_config);
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'bestia-academy';
+
+        let currentUser = null;
+        let selectedRating = 0;
+        let ratingAlreadySubmitted = false;
+
+        // AUTHENTICATION PROTOCOL (RULE 3)
+        const initAuth = async () => {
+            try {
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+            } catch (e) {
+                console.error("Auth Failure:", e);
+                document.getElementById('total-votes-count').innerText = "Error de sesión";
+            }
+        };
+
+        // Track Auth State & Guard Queries
+        onAuthStateChanged(auth, (user) => {
+            currentUser = user;
+            if (user) {
+                console.log("Session verified:", user.uid);
+                // Ensure data fetching only happens with a valid session
+                loadGlobalRatings();
+                loadTestimonials();
+            }
+        });
+
+        // --- RATING SYSTEM ---
+        const stars = document.querySelectorAll('#stars-input .star');
+        const submitBtn = document.getElementById('btn-submit-rating');
+        
+        stars.forEach(s => {
+            s.onclick = () => {
+                if(ratingAlreadySubmitted) return;
+                selectedRating = parseInt(s.dataset.v);
+                stars.forEach((st, i) => st.classList.toggle('active', i < selectedRating));
+                submitBtn.style.display = 'block';
+            };
+        });
+
+        window.submitRating = async () => {
+            if(!currentUser) return;
+            
+            try {
+                // Public Path as per Rule 1
+                const voteRef = doc(db, 'artifacts', appId, 'public', 'data', 'ratings', currentUser.uid);
+                await setDoc(voteRef, { 
+                    rating: selectedRating, 
+                    timestamp: Date.now() 
+                });
+                
+                ratingAlreadySubmitted = true;
+                submitBtn.style.display = 'none';
+                document.getElementById('star-msg').innerText = "¡Gracias por tu voto!";
+            } catch (e) {
+                console.error("Submission Error:", e);
+            }
+        };
+
+        const loadGlobalRatings = () => {
+            if (!currentUser) return;
+            
+            const ratingsCol = collection(db, 'artifacts', appId, 'public', 'data', 'ratings');
+            
+            onSnapshot(ratingsCol, (snapshot) => {
+                let totalScore = 0;
+                let voteCount = 0;
+                
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    if (data && typeof data.rating === 'number') {
+                        totalScore += data.rating;
+                        voteCount++;
+                    }
+                });
+
+                const avg = voteCount > 0 ? (totalScore / voteCount).toFixed(1) : "0.0";
+                document.getElementById('avg-num').innerText = avg;
+                document.getElementById('total-votes-count').innerText = `${voteCount} valoraciones totales`;
+                
+                let starsHtml = "";
+                for(let i=1; i<=5; i++) {
+                    const color = i <= Math.round(parseFloat(avg)) ? 'var(--primary)' : '#222';
+                    starsHtml += `<span style="color: ${color}">★</span>`;
+                }
+                document.getElementById('avg-stars-container').innerHTML = starsHtml;
+            }, (error) => {
+                // Silently handle initial permission propagation delays
+                if (error.code !== 'permission-denied') console.error("Ratings Feed Error:", error);
+            });
+        };
+
+        // --- TESTIMONIAL SYSTEM ---
+        window.addTestimonial = async () => {
+            if (!currentUser) return;
+            const name = document.getElementById('user-name').value.trim();
+            const status = document.getElementById('user-status').value.trim();
+            const comment = document.getElementById('user-comment').value.trim();
+
+            if(!name || !comment) return;
+
+            try {
+                const testimonialsCol = collection(db, 'artifacts', appId, 'public', 'data', 'testimonials');
+                await addDoc(testimonialsCol, {
+                    name, status, comment, timestamp: Date.now()
+                });
+                document.getElementById('user-name').value = '';
+                document.getElementById('user-status').value = '';
+                document.getElementById('user-comment').value = '';
+            } catch (e) {
+                console.error("Testimonial Add Error:", e);
+            }
+        };
+
+        const loadTestimonials = () => {
+            if (!currentUser) return;
+            
+            const testimonialsCol = collection(db, 'artifacts', appId, 'public', 'data', 'testimonials');
+            
+            onSnapshot(testimonialsCol, (snapshot) => {
+                const list = document.getElementById('testimonial-list');
+                list.innerHTML = "";
+                const items = [];
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    if (data) items.push(data);
+                });
+                
+                // Sorting in memory (RULE 2: No complex queries)
+                items.sort((a, b) => b.timestamp - a.timestamp);
+
+                items.forEach(data => {
+                    const card = document.createElement('div');
+                    card.className = 'testimonial-card';
+                    card.innerHTML = `
+                        <p>"${data.comment}"</p>
+                        <div class="testimonial-author">
+                            <span class="author-name">${data.name.toUpperCase()}</span>
+                            <span class="author-status">${data.status || 'Estudiante'}</span>
+                        </div>
+                    `;
+                    list.appendChild(card);
+                });
+            }, (error) => {
+                if (error.code !== 'permission-denied') console.error("Testimonials Feed Error:", error);
+            });
+        };
+
+        // Kickoff Auth
+        initAuth();
+    </script>
+
     <script>
+        // UI & Animation Logic
         let lang = 'es';
         let currentQuizStep = 1;
         let quizScore = 0;
-        let currentRatingValue = 0;
-        let ratingSubmitted = false;
         const totalQuizSteps = 6;
         const WHATSAPP_NUMBER = "5841621422677";
 
@@ -689,98 +839,41 @@
             document.querySelectorAll('[data-es]').forEach(el => {
                 el.innerHTML = el.getAttribute('data-' + lang);
             });
-            
-            const placeholders = {
-                'user-name': ["Tu nombre", "Your name"],
-                'user-status': ["Tu estado", "Your status"],
-                'user-comment': ["Cuéntanos tu transformación...", "Tell us your transformation..."],
-                'quiz-fname': ["Juan", "John"],
-                'quiz-lname': ["Pérez", "Doe"]
-            };
-
-            for (let id in placeholders) {
-                const el = document.getElementById(id);
-                if(el) el.placeholder = lang === 'es' ? placeholders[id][0] : placeholders[id][1];
-            }
-        }
-
-        const stars = document.querySelectorAll('.star');
-        const submitRatingBtn = document.getElementById('btn-submit-rating');
-        const starMsg = document.getElementById('star-msg');
-
-        stars.forEach(s => {
-            s.onclick = function() {
-                if(ratingSubmitted) return;
-                currentRatingValue = parseInt(this.dataset.v);
-                updateStarsUI(currentRatingValue);
-                submitRatingBtn.style.display = 'block';
-                starMsg.innerText = '';
-            }
-        });
-
-        function updateStarsUI(val) {
-            stars.forEach((st, i) => {
-                st.classList.toggle('active', i < val);
-            });
-        }
-
-        function submitRating() {
-            if(currentRatingValue === 0) return;
-            ratingSubmitted = true;
-            submitRatingBtn.style.display = 'none';
-            stars.forEach(s => s.style.cursor = 'default');
-            
-            starMsg.innerText = lang === 'es' 
-                ? `¡Gracias! Has calificado con ${currentRatingValue} estrellas.` 
-                : `Thank you! You rated us with ${currentRatingValue} stars.`;
         }
 
         function openQuiz() {
             const overlay = document.getElementById('quiz-overlay');
-            const wrapper = document.getElementById('main-wrapper');
             overlay.style.display = 'flex';
-            wrapper.style.filter = 'blur(15px)';
             setTimeout(() => overlay.classList.add('active'), 10);
         }
 
         function closeQuiz() {
             const overlay = document.getElementById('quiz-overlay');
-            const wrapper = document.getElementById('main-wrapper');
             overlay.classList.remove('active');
-            wrapper.style.filter = 'none';
-            setTimeout(() => {
-                overlay.style.display = 'none';
-                resetQuiz();
+            setTimeout(() => { 
+                overlay.style.display = 'none'; 
+                resetQuiz(); 
             }, 500);
         }
 
         function validateSituationStep() {
             const text = document.getElementById('quiz-situation-text').value.trim();
-            if(text.length < 5) {
-                alert(lang === 'es' ? "Por favor, cuéntanos un poco más." : "Please tell us a bit more.");
-                return;
-            }
+            if(text.length < 5) return;
             nextQuizStep(true);
         }
 
         function validateContactStep() {
             const fields = ['quiz-fname', 'quiz-lname', 'quiz-email', 'quiz-phone'];
-            const allFilled = fields.every(id => document.getElementById(id).value.trim() !== '');
-            if (!allFilled) {
-                alert(lang === 'es' ? "Completa todos los datos." : "Fill in all data.");
-                return;
+            if(fields.every(id => document.getElementById(id).value.trim() !== '')) {
+                nextQuizStep(true);
             }
-            nextQuizStep(true);
         }
 
         function nextQuizStep(worthy) {
             if(currentQuizStep >= 4 && currentQuizStep <= 5 && worthy) quizScore++;
-            else quizScore += 0.5;
-
             document.querySelector(`.quiz-step[data-step="${currentQuizStep}"]`).classList.remove('active');
             currentQuizStep++;
             document.getElementById('quiz-progress-bar').style.width = `${((currentQuizStep-1)/totalQuizSteps)*100}%`;
-
             const next = document.querySelector(`.quiz-step[data-step="${currentQuizStep}"]`);
             if(next) next.classList.add('active');
             else showQuizResult();
@@ -788,33 +881,23 @@
 
         function redirectToWhatsApp() {
             const fname = document.getElementById('quiz-fname').value;
-            const lname = document.getElementById('quiz-lname').value;
-            const situation = document.getElementById('quiz-situation-text').value;
-            
-            let message = lang === 'es' 
-                ? `Hola Javier, soy ${fname} ${lname}. He completado el test de Códigos de Bestia y me gustaría unirme a la academia. Mi situación actual: ${situation}`
-                : `Hi Javier, I'm ${fname} ${lname}. I completed the Beast Codes test and I'd like to join the academy. My current situation: ${situation}`;
-            
-            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-            window.open(url, '_blank');
+            const message = `Hola Javier, soy ${fname}. He completado el test en tu academia.`;
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
         }
 
         function showQuizResult() {
-            const resultArea = document.getElementById('quiz-final-result');
             const title = document.getElementById('quiz-status-title');
             const desc = document.getElementById('quiz-status-desc');
             const action = document.getElementById('quiz-final-action');
-            resultArea.classList.add('active');
+            document.getElementById('quiz-final-result').classList.add('active');
 
-            if(quizScore >= 3.5) {
-                title.innerText = lang === 'es' ? "¡BIENVENIDO!" : "WELCOME!";
-                title.style.color = "var(--primary)";
-                desc.innerText = lang === 'es' ? "Tu perfil encaja. Haz clic abajo para contactar directamente por WhatsApp." : "Your profile fits. Click below to contact directly via WhatsApp.";
-                action.innerHTML = `<button onclick="redirectToWhatsApp()" class="cta-button" style="background: #25D366; color: white;">ENVIAR WHATSAPP</button>`;
+            if(quizScore >= 1.5) {
+                title.innerText = "¡APROBADO!";
+                desc.innerText = "Perfil apto para la academia. Haz clic abajo para tu entrevista final.";
+                action.innerHTML = `<button onclick="redirectToWhatsApp()" class="cta-button">HABLAR CON JAVIER</button>`;
             } else {
-                title.innerText = lang === 'es' ? "NO APTO" : "NOT ELIGIBLE";
-                title.style.color = "#ff4d4d";
-                desc.innerText = lang === 'es' ? "Necesitas trabajar más en tu enfoque antes de entrar." : "You need to work more on your focus before joining.";
+                title.innerText = "NO APTO";
+                desc.innerText = "Necesitas trabajar más en tu disciplina antes de entrar.";
                 action.innerHTML = `<button onclick="closeQuiz()" class="cta-button">CERRAR</button>`;
             }
         }
@@ -826,27 +909,14 @@
             document.getElementById('quiz-progress-bar').style.width = '0%';
         }
 
-        function addTestimonial() {
-            const name = document.getElementById('user-name').value;
-            const status = document.getElementById('user-status').value;
-            const comment = document.getElementById('user-comment').value;
-            if(!name || !comment) return;
-            const list = document.getElementById('testimonial-list');
-            const card = document.createElement('div');
-            card.className = 'testimonial-card';
-            card.innerHTML = `<p>"${comment}"</p><div class="testimonial-author"><span class="author-name">${name.toUpperCase()}</span><span class="author-status">${status}</span></div>`;
-            list.appendChild(card);
-            document.getElementById('user-name').value = '';
-            document.getElementById('user-status').value = '';
-            document.getElementById('user-comment').value = '';
-        }
-
-        function reveal() {
+        // Scroll reveal logic
+        window.addEventListener('scroll', () => {
             document.querySelectorAll('.reveal').forEach(el => {
-                if (el.getBoundingClientRect().top < window.innerHeight - 50) el.classList.add('active');
+                if (el.getBoundingClientRect().top < window.innerHeight - 50) {
+                    el.classList.add('active');
+                }
             });
-        }
-        window.addEventListener('scroll', reveal);
+        });
     </script>
 </body>
 </html>
